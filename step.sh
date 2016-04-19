@@ -9,7 +9,7 @@ privoxy_configfile="privoxy_configfile"
 echo ""
 echo "========== Configs =========="
 echo "proxy: ${proxy_url}:${proxy_port}"
-echo "logfile: ${logfile}"
+echo "logfile: ${privoxy_logfile}"
 if [[ -n "${fauxpas_debug_mode}" ]]; then
 	echo "fauxpas_debug_mode: ${fauxpas_debug_mode}"
 fi
@@ -21,16 +21,19 @@ if [[ "${fauxpas_debug_mode}" = true ]]; then
 fi
 
 brew install privoxy
-
 ln -sfv /usr/local/opt/privoxy/*.plist ~/Library/LaunchAgents
 privoxy_bin=$(/usr/libexec/PlistBuddy -c "Print:ProgramArguments:0" ~/Library/LaunchAgents/homebrew.mxcl.privoxy.plist)
 # privoxy_config=$(/usr/libexec/PlistBuddy -c "Print:ProgramArguments:2" ~/Desktop/homebrew.mxcl.privoxy.plist)
 sudo networksetup -setwebproxy "Ethernet 1" ${proxy_url} ${proxy_port}
-eval "$(privoxy_bin) $(privoxy_configfile)"
+eval "${privoxy_bin} ${privoxy_configfile}"
+
+if [[ "${fauxpas_debug_mode}" = true ]]; then
+	set +x
+fi
 
 echo ""
 echo "========== Outputs =========="
-echo "PRIVOXY_LOG: ${logfile}"
+echo "PRIVOXY_LOG: ${privoxy_logfile}"
 echo "============================="
 echo ""
 
