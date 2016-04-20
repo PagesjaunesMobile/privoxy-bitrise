@@ -27,7 +27,7 @@ privoxy_bin=$(/usr/libexec/PlistBuddy -c "Print:ProgramArguments:0" ~/Library/La
 if [[ "${fauxpas_debug_mode}" = true ]]; then
 	networksetup -listallnetworkservices
 fi
-sudo networksetup -setwebproxy "Ethernet 1" ${proxy_url} ${proxy_port}
+sudo networksetup -setwebproxy "Ethernet" ${proxy_url} ${proxy_port}
 eval "${privoxy_bin} ${privoxy_configfile}"
 
 if [[ "${fauxpas_debug_mode}" = true ]]; then
