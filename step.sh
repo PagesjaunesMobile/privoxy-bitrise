@@ -11,45 +11,52 @@ echo ""
 echo "========== Configs =========="
 echo "proxy: ${proxy_url}:${proxy_port}"
 echo "logfile: ${privoxy_logfile}"
-if [[ -n "${fauxpas_debug_mode}" ]]; then
-	echo "fauxpas_debug_mode: ${fauxpas_debug_mode}"
+echo "privoxy_configfile: ${privoxy_configfile}"
+if [[ -n "${privoxy_debug_mode}" ]]; then
+	echo "privoxy_debug_mode: ${privoxy_debug_mode}"
 fi
 echo "============================="
 echo ""
 
-if [[ "${fauxpas_debug_mode}" = true ]]; then
+if [[ "${privoxy_debug_mode}" = true ]]; then
 	set -x
 fi
 
 # curl -O https://raw.githubusercontent.com/mackoj/privoxy-bitrise/master/privoxy_configfile
 
-if [[ "${fauxpas_debug_mode}" = true ]]; then
+if [[ "${privoxy_debug_mode}" = true ]]; then
 	ls
 	networksetup -listallnetworkservices
 fi
 
+# install privoxy
 brew install privoxy
+
+# configure privoxy
 ln -sfv /usr/local/opt/privoxy/*.plist ~/Library/LaunchAgents
 privoxy_bin=$(/usr/libexec/PlistBuddy -c "Print:ProgramArguments:0" ~/Library/LaunchAgents/homebrew.mxcl.privoxy.plist)
-# privoxy_config=$(/usr/libexec/PlistBuddy -c "Print:ProgramArguments:2" ~/Desktop/homebrew.mxcl.privoxy.plist)
 
+# setup the proxy on OSX
 sudo networksetup -setwebproxy "Ethernet" ${proxy_url} ${proxy_port}
 eval "${privoxy_bin} ${privoxy_configfile}"
 
+#verifing if privoxy is working properly
 privoxy_state=1
 is_privoxy_working=$(ps aux | grep privoxy | grep -v grep | wc -l | awk '{print $1}')
 if [[ ${is_privoxy_working} > 0 ]]; then
 	privoxy_state=0
 fi
 
-if [[ "${fauxpas_debug_mode}" = true ]]; then
+
+if [[ "${privoxy_debug_mode}" = true ]]; then
 	set +x
 fi
 
+# debug stuff
 open https://raw.githubusercontent.com/mackoj/privoxy-bitrise/master/privoxy_configfile
 
+# output all the logs
 export PRIVOXY_LOG=${privoxy_logfile}
-
 echo ""
 echo "========== Outputs =========="
 echo "PRIVOXY_LOG: ${PRIVOXY_LOG}"
