@@ -24,6 +24,9 @@ brew install privoxy
 ln -sfv /usr/local/opt/privoxy/*.plist ~/Library/LaunchAgents
 privoxy_bin=$(/usr/libexec/PlistBuddy -c "Print:ProgramArguments:0" ~/Library/LaunchAgents/homebrew.mxcl.privoxy.plist)
 # privoxy_config=$(/usr/libexec/PlistBuddy -c "Print:ProgramArguments:2" ~/Desktop/homebrew.mxcl.privoxy.plist)
+if [[ "${fauxpas_debug_mode}" = true ]]; then
+	networksetup -listallnetworkservices
+fi
 sudo networksetup -setwebproxy "Ethernet 1" ${proxy_url} ${proxy_port}
 eval "${privoxy_bin} ${privoxy_configfile}"
 
@@ -31,9 +34,11 @@ if [[ "${fauxpas_debug_mode}" = true ]]; then
 	set +x
 fi
 
+export PRIVOXY_LOG=${privoxy_logfile}
+
 echo ""
 echo "========== Outputs =========="
-echo "PRIVOXY_LOG: ${privoxy_logfile}"
+echo "PRIVOXY_LOG: ${PRIVOXY_LOG}"
 echo "============================="
 echo ""
 
