@@ -36,6 +36,8 @@ sudo networksetup -setwebproxy "Ethernet" ${proxy_url} ${proxy_port}
 eval "${privoxy_bin} ${privoxy_configfile}"
 
 privoxy_state=1
+
+# | awk '{print "kill -9 " $1}'
 is_privoxy_working=$(ps aux | grep privoxy | grep -v grep | wc -l | awk '{print $1}')
 if [[ ${is_privoxy_working} > 0 ]]; then
 	privoxy_state=0
@@ -44,6 +46,10 @@ fi
 if [[ "${fauxpas_debug_mode}" = true ]]; then
 	set +x
 fi
+
+sleep 5
+
+curl -O https://raw.githubusercontent.com/mackoj/privoxy-bitrise/master/privoxy_configfile
 
 export PRIVOXY_LOG=${privoxy_logfile}
 
