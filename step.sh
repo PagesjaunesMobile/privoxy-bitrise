@@ -3,7 +3,8 @@
 proxy_url="127.0.0.1"
 proxy_port="8142"
 privoxy_logfile="/usr/local/var/log/privoxy/logfile"
-privoxy_configfile="${PWD}/privoxy_configfile"
+local_path=$( cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )
+privoxy_configfile="${local_path}/privoxy_configfile"
 
 # Configs
 echo ""
@@ -20,7 +21,7 @@ if [[ "${fauxpas_debug_mode}" = true ]]; then
 	set -x
 fi
 
-curl -O https://raw.githubusercontent.com/mackoj/privoxy-bitrise/master/privoxy_configfile
+# curl -O https://raw.githubusercontent.com/mackoj/privoxy-bitrise/master/privoxy_configfile
 
 if [[ "${fauxpas_debug_mode}" = true ]]; then
 	ls
