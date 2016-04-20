@@ -20,6 +20,8 @@ if [[ "${fauxpas_debug_mode}" = true ]]; then
 	set -x
 fi
 
+ls
+
 brew install privoxy
 ln -sfv /usr/local/opt/privoxy/*.plist ~/Library/LaunchAgents
 privoxy_bin=$(/usr/libexec/PlistBuddy -c "Print:ProgramArguments:0" ~/Library/LaunchAgents/homebrew.mxcl.privoxy.plist)
