@@ -22,6 +22,7 @@ if [[ "${privoxy_debug_mode}" = true ]]; then
 	set -x
 fi
 
+# Ugly workaroud
 # curl -O https://raw.githubusercontent.com/mackoj/privoxy-bitrise/master/privoxy_configfile
 
 if [[ "${privoxy_debug_mode}" = true ]]; then
@@ -51,9 +52,6 @@ fi
 if [[ "${privoxy_debug_mode}" = true ]]; then
 	set +x
 fi
-
-# debug stuff
-open https://raw.githubusercontent.com/mackoj/privoxy-bitrise/master/privoxy_configfile
 
 # output all the logs
 export PRIVOXY_LOG=${privoxy_logfile}
