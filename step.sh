@@ -20,9 +20,8 @@ fi
 echo "============================="
 echo ""
 
-set -e
-
 if [[ "${privoxy_debug_mode}" = true ]]; then
+	set -e
 	set -x
 fi
 
@@ -39,10 +38,12 @@ ln -sfv /usr/local/opt/privoxy/*.plist ~/Library/LaunchAgents
 privoxy_bin=$(/usr/libexec/PlistBuddy -c "Print:ProgramArguments:0" ~/Library/LaunchAgents/homebrew.mxcl.privoxy.plist)
 
 # setup the proxy on OSX
-sudo networksetup -setwebproxy ${privoxy_webproxy_networkservice} ${proxy_url} ${proxy_port}
+sudo networksetup -setwebproxy "${privoxy_webproxy_networkservice}" ${proxy_url} ${proxy_port}
 eval "${privoxy_bin} ${privoxy_configfile}"
 
+# enable the proxy more broadly
 export http_proxy=http://${proxy_url}:${proxy_port}/
+envman add --key http_proxy --value "http://${proxy_url}:${proxy_port}/"
 
 #verifing if privoxy is working properly
 if [[ "${privoxy_debug_mode}" = true ]]; then
@@ -60,8 +61,8 @@ if [[ "${privoxy_debug_mode}" = true ]]; then
 fi
 
 # output all the logs
+export PRIVOXY_LOG=${privoxy_logfile}
 envman add --key PRIVOXY_LOG --value ${privoxy_logfile}
-
 echo ""
 echo "========== Outputs =========="
 echo "PRIVOXY_LOG: ${PRIVOXY_LOG}"
