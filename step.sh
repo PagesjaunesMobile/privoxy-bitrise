@@ -43,6 +43,7 @@ sudo networksetup -setwebproxy "Ethernet" ${proxy_url} ${proxy_port}
 eval "${privoxy_bin} ${privoxy_configfile}"
 eval "${privoxy_bin} ${privoxy_configfile}"
 
+export http_proxy=http://${proxy_url}:${proxy_port}/
 
 #verifing if privoxy is working properly
 if [[ "${privoxy_debug_mode}" = true ]]; then
