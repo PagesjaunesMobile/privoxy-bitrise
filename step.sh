@@ -56,15 +56,15 @@ export http_proxy=http://${proxy_url}:${proxy_port}/
 envman add --key http_proxy --value "http://${proxy_url}:${proxy_port}/"
 
 #verifing if privoxy is working properly
-if [[ "${privoxy_debug_mode}" = true ]]; then
-	ps aux | grep privoxy | grep -v grep
-fi
+ps aux | grep privoxy | grep -v grep
+
 privoxy_state=1
 is_privoxy_working=$(ps aux | grep privoxy | grep -v grep | wc -l | awk '{print $1}')
 if [[ ${is_privoxy_working} > 0 ]]; then
 	privoxy_state=0
 fi
 
+echo "privoxy_state: ${privoxy_state}"
 
 if [[ "${privoxy_debug_mode}" = true ]]; then
 	set +x
