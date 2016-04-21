@@ -614,7 +614,6 @@ debug       1 # Log the destination for each request Privoxy let through. See al
 debug  1024 # Actions that are applied to all sites and maybe overruled later on.
 debug  4096 # Startup banner and warnings
 debug  8192 # Non-fatal errors
-debug  32768 # Non-fatal errors
 #
 #  3.2. single-threaded
 #  =====================
@@ -781,7 +780,7 @@ debug  32768 # Non-fatal errors
 #
 #        listen-address [::1]:8118
 #
-listen-address  127.0.0.1:8142
+listen-address  __IP__:__PORT__
 #
 #  4.2. toggle
 #  ============
