@@ -1,7 +1,17 @@
 title: "Privoxy"
-summary: Set a proxy
+summary: Enable a proxy
 description: |-
-  Bla Bla bla
+
+  Privoxy is a non-caching web proxy with advanced filtering capabilities for
+  enhancing privacy, modifying web page data and HTTP headers, controlling
+  access, and removing ads and other obnoxious Internet junk. Privoxy has a
+  flexible configuration and can be customized to suit individual needs and
+  tastes. It has application for both stand-alone systems and multi-user
+  networks.
+
+  Privoxy is Free Software and licensed under the GNU GPLv2.
+  Privoxy is an associated project of Software in the Public Interest (SPI).
+
 website: https://github.com/mackoj/privoxy-bitrise.git
 source_code_url: https://github.com/mackoj/privoxy-bitrise.git
 support_url: https://github.com/mackoj/privoxy-bitrise.git/issues
@@ -12,7 +22,7 @@ project_type_tags:
 type_tags:
   - script
 is_requires_admin_user: true
-is_always_run: false
+is_always_run: true
 is_skippable: false
 deps:
   brew:
@@ -32,9 +42,6 @@ inputs:
     opts:
       title: Network interface to analyze
       summary: ""
-      description: |
-        If you want to see what command are send to the system.
-        Do not modify this !
       is_required: true
 outputs:
   - PRIVOXY_LOG:

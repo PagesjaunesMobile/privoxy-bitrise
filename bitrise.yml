@@ -21,10 +21,10 @@ workflows:
   share-this-step:
     envs:
       # if you want to share this step into a StepLib
-      - MY_STEPLIB_REPO_FORK_GIT_URL: git@github.com:mackoj/fauxpasapp-bitrise.git
-      - STEP_ID_IN_STEPLIB: fauxpasapp
-      - STEP_GIT_VERION_TAG_TO_SHARE: 0.1.2
-      - STEP_GIT_CLONE_URL: git@github.com:mackoj/fauxpasapp-bitrise.git
+      - MY_STEPLIB_REPO_FORK_GIT_URL: git@github.com:mackoj/privoxy-bitrise.git
+      - STEP_ID_IN_STEPLIB: privoxy
+      - STEP_GIT_VERION_TAG_TO_SHARE: 1.0.0
+      - STEP_GIT_CLONE_URL: git@github.com:mackoj/privoxy-bitrise.git
     description: |-
       If this is the first time you try to share a Step you should
       first call: $ bitrise share

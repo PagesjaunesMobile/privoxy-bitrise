@@ -1,27 +1,24 @@
 #!/bin/bash
 
-# defining the same proxy setting as in the config file
-privoxy_logfile="/usr/local/var/log/privoxy/logfile"
+privoxy_log_file="/usr/local/var/log/privoxy/logfile"
 proxy_url=$(ifconfig en0 | grep inet | grep -v inet6 | awk '{print $2}')
 proxy_port="8242"
 
-# local_path=$( cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )
-# privoxy_configfile="${local_path}/privoxy_configfile"
-privoxy_configfile="${PWD}/privoxy_configfile_tmp"
-
-# configure privoxy
 ln -sf /usr/local/opt/privoxy/*.plist ~/Library/LaunchAgents
 privoxy_bin=$(/usr/libexec/PlistBuddy -c "Print:ProgramArguments:0" ~/Library/LaunchAgents/homebrew.mxcl.privoxy.plist)
 
+# local_path=$( cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )
+# privoxy_config_file="${local_path}/privoxy_config_file"
+privoxy_config_file="${PWD}/privoxy_config_file_tmp"
 
 # Configs
 echo ""
 echo "========== Configs =========="
 echo "proxy: ${proxy_url}:${proxy_port}"
-echo "logfile: ${privoxy_logfile}"
-echo "privoxy_configfile: ${privoxy_configfile}"
+echo "logfile: ${privoxy_log_file}"
+echo "privoxy_config_file: ${privoxy_config_file}"
 echo "privoxy_bin: ${privoxy_bin}"
-echo "privoxy_webproxy_networkservice: ${privoxy_webproxy_networkservice}"
+echo "networkservice: ${privoxy_webproxy_networkservice}"
 if [[ -n "${privoxy_debug_mode}" ]]; then
 	echo "privoxy_debug_mode: ${privoxy_debug_mode}"
 fi
@@ -33,10 +30,10 @@ if [[ "${privoxy_debug_mode}" = true ]]; then
 fi
 
 # Ugly workaroud
-curl https://raw.githubusercontent.com/mackoj/privoxy-bitrise/master/privoxy_configfile -o ${privoxy_configfile}
+curl https://raw.githubusercontent.com/mackoj/privoxy-bitrise/master/privoxy_config_file -o ${privoxy_config_file}
 
-sed -i '' -e "s/__IP__/${proxy_url}/g" ${privoxy_configfile}
-sed -i '' -e "s/__PORT__/${proxy_port}/g" ${privoxy_configfile}
+sed -i '' -e "s/__IP__/${proxy_url}/g" ${privoxy_config_file}
+sed -i '' -e "s/__PORT__/${proxy_port}/g" ${privoxy_config_file}
 
 if [[ "${privoxy_debug_mode}" = true ]]; then
 	ls
@@ -45,7 +42,7 @@ fi
 
 # setup the proxy on OSX
 sudo networksetup -setwebproxy "${privoxy_webproxy_networkservice}" ${proxy_url} ${proxy_port}
-eval "${privoxy_bin} ${privoxy_configfile}"
+eval "${privoxy_bin} ${privoxy_config_file}"
 
 # enable the proxy more broadly
 export http_proxy=http://${proxy_url}:${proxy_port}/
@@ -67,8 +64,8 @@ if [[ "${privoxy_debug_mode}" = true ]]; then
 fi
 
 # output all the logs
-export PRIVOXY_LOG=${privoxy_logfile}
-envman add --key PRIVOXY_LOG --value ${privoxy_logfile}
+export PRIVOXY_LOG=${privoxy_log_file}
+envman add --key PRIVOXY_LOG --value ${privoxy_log_file}
 
 echo ""
 echo "========== Outputs =========="
