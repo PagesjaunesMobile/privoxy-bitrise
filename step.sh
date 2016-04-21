@@ -13,11 +13,14 @@ echo "========== Configs =========="
 echo "proxy: ${proxy_url}:${proxy_port}"
 echo "logfile: ${privoxy_logfile}"
 echo "privoxy_configfile: ${privoxy_configfile}"
+echo "privoxy_webproxy_networkservice: ${privoxy_webproxy_networkservice}"
 if [[ -n "${privoxy_debug_mode}" ]]; then
 	echo "privoxy_debug_mode: ${privoxy_debug_mode}"
 fi
 echo "============================="
 echo ""
+
+set -e
 
 if [[ "${privoxy_debug_mode}" = true ]]; then
 	set -x
@@ -30,9 +33,6 @@ if [[ "${privoxy_debug_mode}" = true ]]; then
 	ls
 	networksetup -listallnetworkservices
 fi
-
-# install privoxy
-brew install privoxy
 
 # configure privoxy
 ln -sfv /usr/local/opt/privoxy/*.plist ~/Library/LaunchAgents
@@ -60,7 +60,8 @@ if [[ "${privoxy_debug_mode}" = true ]]; then
 fi
 
 # output all the logs
-export PRIVOXY_LOG=${privoxy_logfile}
+envman add --key PRIVOXY_LOG --value ${privoxy_logfile}
+
 echo ""
 echo "========== Outputs =========="
 echo "PRIVOXY_LOG: ${PRIVOXY_LOG}"
