@@ -21,7 +21,6 @@ echo "============================="
 echo ""
 
 if [[ "${privoxy_debug_mode}" = true ]]; then
-	set -e
 	set -x
 fi
 
@@ -33,9 +32,20 @@ if [[ "${privoxy_debug_mode}" = true ]]; then
 	networksetup -listallnetworkservices
 fi
 
+killall -KILL privoxy
+killall -KILL privoxy
+killall -KILL privoxy
+set -e
+
 # configure privoxy
 ln -sfv /usr/local/opt/privoxy/*.plist ~/Library/LaunchAgents
 privoxy_bin=$(/usr/libexec/PlistBuddy -c "Print:ProgramArguments:0" ~/Library/LaunchAgents/homebrew.mxcl.privoxy.plist)
+
+set +e
+killall -KILL privoxy
+killall -KILL privoxy
+killall -KILL privoxy
+set -e
 
 # setup the proxy on OSX
 sudo networksetup -setwebproxy "${privoxy_webproxy_networkservice}" ${proxy_url} ${proxy_port}
