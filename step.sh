@@ -30,8 +30,8 @@ fi
 curl -O https://raw.githubusercontent.com/mackoj/privoxy-bitrise/master/privoxy_configfile
 
 set -x
-sed -i "s/__IP__/${proxy_url}/g" "${privoxy_configfile}"
-sed -i "s/__PORT__/${proxy_port}/g" "${privoxy_configfile}"
+sed -i "'s/__IP__/${proxy_url}/g'" "${privoxy_configfile}"
+sed -i "'s/__PORT__/${proxy_port}/g'" "${privoxy_configfile}"
 set +x
 
 if [[ "${privoxy_debug_mode}" = true ]]; then
