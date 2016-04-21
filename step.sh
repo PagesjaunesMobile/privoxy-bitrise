@@ -35,12 +35,8 @@ fi
 # Ugly workaroud
 curl https://raw.githubusercontent.com/mackoj/privoxy-bitrise/master/privoxy_configfile -o ${privoxy_configfile}
 
-set -x
-
 sed -i '' -e "s/__IP__/${proxy_url}/g" ${privoxy_configfile}
 sed -i '' -e "s/__PORT__/${proxy_port}/g" ${privoxy_configfile}
-
-set +x
 
 if [[ "${privoxy_debug_mode}" = true ]]; then
 	ls
