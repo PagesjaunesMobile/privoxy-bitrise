@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# defining the same proxy setting as in the config file
 proxy_url="127.0.0.1"
 proxy_port="8142"
 privoxy_logfile="/usr/local/var/log/privoxy/logfile"
@@ -39,6 +40,7 @@ privoxy_bin=$(/usr/libexec/PlistBuddy -c "Print:ProgramArguments:0" ~/Library/La
 
 # setup the proxy on OSX
 sudo networksetup -setwebproxy "Ethernet" ${proxy_url} ${proxy_port}
+eval "${privoxy_bin} ${privoxy_configfile}"
 eval "${privoxy_bin} ${privoxy_configfile}"
 
 
