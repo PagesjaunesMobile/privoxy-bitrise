@@ -9,12 +9,18 @@ proxy_port="8242"
 # privoxy_configfile="${local_path}/privoxy_configfile"
 privoxy_configfile="${PWD}/privoxy_configfile"
 
+# configure privoxy
+ln -sf /usr/local/opt/privoxy/*.plist ~/Library/LaunchAgents
+privoxy_bin=$(/usr/libexec/PlistBuddy -c "Print:ProgramArguments:0" ~/Library/LaunchAgents/homebrew.mxcl.privoxy.plist)
+
+
 # Configs
 echo ""
 echo "========== Configs =========="
 echo "proxy: ${proxy_url}:${proxy_port}"
 echo "logfile: ${privoxy_logfile}"
 echo "privoxy_configfile: ${privoxy_configfile}"
+echo "privoxy_bin: ${privoxy_bin}"
 echo "privoxy_webproxy_networkservice: ${privoxy_webproxy_networkservice}"
 if [[ -n "${privoxy_debug_mode}" ]]; then
 	echo "privoxy_debug_mode: ${privoxy_debug_mode}"
@@ -30,29 +36,14 @@ fi
 curl -O https://raw.githubusercontent.com/mackoj/privoxy-bitrise/master/privoxy_configfile
 
 set -x
-sed -i "'s/__IP__/${proxy_url}/g'" "${privoxy_configfile}"
-sed -i "'s/__PORT__/${proxy_port}/g'" "${privoxy_configfile}"
+eval "sed -i 's/__IP__/${proxy_url}/g' \"${privoxy_configfile}\""
+eval "sed -i 's/__PORT__/${proxy_port}/g' \"${privoxy_configfile}\""
 set +x
 
 if [[ "${privoxy_debug_mode}" = true ]]; then
 	ls
 	networksetup -listallnetworkservices
 fi
-
-# killall -KILL privoxy
-# killall -KILL privoxy
-# killall -KILL privoxy
-# set -e
-
-# configure privoxy
-ln -sfv /usr/local/opt/privoxy/*.plist ~/Library/LaunchAgents
-privoxy_bin=$(/usr/libexec/PlistBuddy -c "Print:ProgramArguments:0" ~/Library/LaunchAgents/homebrew.mxcl.privoxy.plist)
-
-# set +e
-# killall -KILL privoxy
-# killall -KILL privoxy
-# killall -KILL privoxy
-# set -e
 
 # setup the proxy on OSX
 sudo networksetup -setwebproxy "${privoxy_webproxy_networkservice}" ${proxy_url} ${proxy_port}
