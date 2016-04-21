@@ -25,6 +25,13 @@ inputs:
       value_options:
       - "true"
       - "false"
+  - privoxy_webproxy_networkservice: Ethernet
+    opts:
+      title: Network interface to analyze
+      summary: ""
+      description: |
+        If you want to see what command are send to the system.
+      is_required: true
 outputs:
   - PRIVOXY_LOG:
     opts:

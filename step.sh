@@ -39,7 +39,7 @@ ln -sfv /usr/local/opt/privoxy/*.plist ~/Library/LaunchAgents
 privoxy_bin=$(/usr/libexec/PlistBuddy -c "Print:ProgramArguments:0" ~/Library/LaunchAgents/homebrew.mxcl.privoxy.plist)
 
 # setup the proxy on OSX
-sudo networksetup -setwebproxy "Ethernet" ${proxy_url} ${proxy_port}
+sudo networksetup -setwebproxy ${privoxy_webproxy_networkservice} ${proxy_url} ${proxy_port}
 eval "${privoxy_bin} ${privoxy_configfile}"
 
 export http_proxy=http://${proxy_url}:${proxy_port}/
