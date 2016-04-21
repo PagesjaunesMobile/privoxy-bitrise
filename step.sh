@@ -3,7 +3,7 @@
 # defining the same proxy setting as in the config file
 privoxy_logfile="/usr/local/var/log/privoxy/logfile"
 proxy_url=$(ifconfig en0 | grep inet | grep -v inet6 | awk '{print $2}')
-proxy_port="8118"
+proxy_port="8242"
 
 # local_path=$( cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )
 # privoxy_configfile="${local_path}/privoxy_configfile"
