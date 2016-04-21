@@ -41,7 +41,6 @@ privoxy_bin=$(/usr/libexec/PlistBuddy -c "Print:ProgramArguments:0" ~/Library/La
 # setup the proxy on OSX
 sudo networksetup -setwebproxy "Ethernet" ${proxy_url} ${proxy_port}
 eval "${privoxy_bin} ${privoxy_configfile}"
-eval "${privoxy_bin} ${privoxy_configfile}"
 
 export http_proxy=http://${proxy_url}:${proxy_port}/
 
