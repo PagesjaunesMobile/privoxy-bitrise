@@ -15,6 +15,7 @@ workflows:
         title: Privoxy
         inputs:
           - privoxy_webproxy_networkservice: Ethernet 1
+          - privoxy_debug_mode: "true"
 
   # ----------------------------------------------------------------
   # --- workflows to Share this step into a Step Library

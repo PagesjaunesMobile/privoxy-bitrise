@@ -73,4 +73,6 @@ echo "PRIVOXY_LOG: ${PRIVOXY_LOG}"
 echo "============================="
 echo ""
 
+sleep 3
+
 exit ${privoxy_state}
