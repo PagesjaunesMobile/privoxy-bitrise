@@ -1,8 +1,6 @@
 format_version: 1.1.0
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 
-envs:
-
 workflows:
   test:
     steps:
@@ -17,7 +15,7 @@ workflows:
         title: Privoxy
         inputs:
           - privoxy_webproxy_networkservice: Ethernet 1
-          
+
   # ----------------------------------------------------------------
   # --- workflows to Share this step into a Step Library
   share-this-step:

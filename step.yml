@@ -34,6 +34,7 @@ inputs:
       summary: ""
       description: |
         If you want to see what command are send to the system.
+        Do not modify this !
       is_required: true
 outputs:
   - PRIVOXY_LOG:
