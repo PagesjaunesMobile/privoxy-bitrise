@@ -18,7 +18,7 @@ deps:
   brew:
     - name: privoxy
 inputs:
-  - privoxy_debug_mode: "true"
+  - privoxy_debug_mode: "false"
     opts:
       title: Debug Mode
       summary: ""
