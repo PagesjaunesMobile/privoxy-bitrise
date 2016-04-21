@@ -7,7 +7,7 @@ proxy_port="8242"
 
 # local_path=$( cd $( dirname "${BASH_SOURCE[0]}" ) && pwd )
 # privoxy_configfile="${local_path}/privoxy_configfile"
-privoxy_configfile="${PWD}/privoxy_configfile"
+privoxy_configfile="${PWD}/privoxy_configfile_tmp"
 
 # configure privoxy
 ln -sf /usr/local/opt/privoxy/*.plist ~/Library/LaunchAgents
@@ -33,7 +33,7 @@ if [[ "${privoxy_debug_mode}" = true ]]; then
 fi
 
 # Ugly workaroud
-curl -O https://raw.githubusercontent.com/mackoj/privoxy-bitrise/master/privoxy_configfile
+curl https://raw.githubusercontent.com/mackoj/privoxy-bitrise/master/privoxy_configfile -o privoxy_configfile_tmp
 
 set -x
 eval "sed -i 's/__IP__/${proxy_url}/g' \"${privoxy_configfile}\""
