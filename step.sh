@@ -41,7 +41,11 @@ privoxy_bin=$(/usr/libexec/PlistBuddy -c "Print:ProgramArguments:0" ~/Library/La
 sudo networksetup -setwebproxy "Ethernet" ${proxy_url} ${proxy_port}
 eval "${privoxy_bin} ${privoxy_configfile}"
 
+
 #verifing if privoxy is working properly
+if [[ "${privoxy_debug_mode}" = true ]]; then
+	ps aux | grep privoxy | grep -v grep
+fi
 privoxy_state=1
 is_privoxy_working=$(ps aux | grep privoxy | grep -v grep | wc -l | awk '{print $1}')
 if [[ ${is_privoxy_working} > 0 ]]; then
