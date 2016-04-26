@@ -30,7 +30,7 @@ if [[ "${privoxy_debug_mode}" = true ]]; then
 fi
 
 # Ugly workaroud
-curl https://raw.githubusercontent.com/mackoj/privoxy-bitrise/master/privoxy_config_file -o ${privoxy_config_file}
+curl https://raw.githubusercontent.com/PagesjaunesMobile/privoxy-bitrise/master/privoxy_config_file -o ${privoxy_config_file}
 
 sed -i '' -e "s/__IP__/${proxy_url}/g" ${privoxy_config_file}
 sed -i '' -e "s/__PORT__/${proxy_port}/g" ${privoxy_config_file}

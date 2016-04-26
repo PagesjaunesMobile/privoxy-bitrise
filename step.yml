@@ -12,9 +12,9 @@ description: |-
   Privoxy is Free Software and licensed under the GNU GPLv2.
   Privoxy is an associated project of Software in the Public Interest (SPI).
 
-website: https://github.com/mackoj/privoxy-bitrise.git
-source_code_url: https://github.com/mackoj/privoxy-bitrise.git
-support_url: https://github.com/mackoj/privoxy-bitrise.git/issues
+website: https://github.com/PagesjaunesMobile/privoxy-bitrise.git
+source_code_url: https://github.com/PagesjaunesMobile/privoxy-bitrise.git
+support_url: https://github.com/PagesjaunesMobile/privoxy-bitrise.git/issues
 host_os_tags:
   - osx-10.10
 project_type_tags:
